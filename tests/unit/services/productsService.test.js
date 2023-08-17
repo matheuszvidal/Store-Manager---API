@@ -9,9 +9,9 @@ describe('SERVICE - Verificando camada Service de products', function () {
   describe('listagem de products', function () {
     it('retorna a lista completa de produtos', async function () {
       sinon.stub(productsModel, 'getAll').resolves(allProducts);
-      
+
       const result = await productsService.getAll();
-      
+
       expect(result.type).to.be.equal(null);
       expect(result.message).to.deep.equal(allProducts);
     });
@@ -73,14 +73,14 @@ describe('SERVICE - Verificando camada Service de products', function () {
   describe('Atualizando um produto', function () {
     it('retorna um erro ao passar um nome inválido', async function () {
       const result = await productsService.updateProduct(1, 'name')
-      
+
       expect(result.type).to.equal('INVALID_VALUE')
       expect(result.message).to.equal('"value" must be of type object');
     })
 
     it('retorna um erro NOT FOUND caso o ID sejá de um produto que não exista', async function () {
       const result = await productsService.updateProduct(12, { name: 'Martelo' })
-      
+
       expect(result.type).to.equal('PRODUCT_NOT_FOUND')
       expect(result.message).to.equal('Product not found')
     })
